@@ -1,0 +1,78 @@
+#define BUTTON_PIN 4
+const int In1 = 8;
+const int In2 = 9;
+const int In3 = 10;
+const int In4 = 11;
+int reading = 0;
+  
+void setup() {
+  pinMode(In1, OUTPUT);
+  pinMode(In2, OUTPUT);
+  pinMode(In3, OUTPUT);
+  pinMode(In4, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void off(){
+  digitalWrite(In1, LOW);
+  digitalWrite(In2, LOW);
+  digitalWrite(In3, LOW);
+  digitalWrite(In4, LOW);
+}
+
+void goStraight(){
+  digitalWrite(In1, HIGH);
+  digitalWrite(In2, LOW);
+  digitalWrite(In3, LOW);
+  digitalWrite(In4, HIGH);
+}
+
+void goLeft(){
+  digitalWrite(In1, LOW);
+  digitalWrite(In2, LOW);
+  digitalWrite(In3, LOW);
+  digitalWrite(In4, HIGH);
+  }
+
+void goRight(){
+  digitalWrite(In1, HIGH);
+  digitalWrite(In2, LOW);
+  digitalWrite(In3, LOW);
+  digitalWrite(In4, LOW);
+  }
+
+
+void loop() {
+Serial.println(reading);
+  
+  if(digitalRead(BUTTON_PIN) == 0){
+  reading = reading + 1;
+    delay(500);
+  }
+
+  if(reading == 4){
+    reading = 0;
+  }
+
+switch(reading){
+  case 0: {
+    off();
+  }
+  break;
+  
+  case 1: {
+    goLeft();
+  }
+  break;
+  
+  case 2: {
+    goStraight();
+  }
+  break;
+  
+  case 3: {
+    goRight();
+  }
+   }
+ }
